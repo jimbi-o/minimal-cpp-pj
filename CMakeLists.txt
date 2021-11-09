@@ -9,33 +9,23 @@ include(cmake/CPM.cmake)
 CPMAddPackage("gh:onqtam/doctest#2.4.6")
 CPMAddPackage("gh:gabime/spdlog@1.9.2")
 
-if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-  if (NOT DEFINED BUILD_WITH_TEST)
-	set(BUILD_WITH_TEST ON)
-  endif()
-  add_executable(minimalcpppj)
-else()
-  add_library(minimalcpppj)
-endif()
-
-target_compile_features(minimalcpppj PUBLIC cxx_std_20)
+option(BUILD_WITH_TEST "build project with test." OFF)
 if (BUILD_WITH_TEST)
-  target_compile_definitions(minimalcpppj PRIVATE BUILD_WITH_TEST DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
-  target_sources(minimalcpppj PRIVATE "src/test.cpp")
+  add_executable(${CMAKE_PROJECT_NAME})
+  target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE BUILD_WITH_TEST DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
+  add_subdirectory(tests)
 else()
-  target_compile_definitions(minimalcpppj PRIVATE DOCTEST_CONFIG_DISABLE)
+  add_library(${CMAKE_PROJECT_NAME})
+  target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE DOCTEST_CONFIG_DISABLE)
 endif()
-target_link_libraries(minimalcpppj PUBLIC spdlog::spdlog)
 
-target_include_directories(minimalcpppj
+target_compile_features(${CMAKE_PROJECT_NAME} PUBLIC cxx_std_20)
+target_include_directories(${CMAKE_PROJECT_NAME}
   PUBLIC
   "include"
   "${spdlog_SOURCE_DIR}/include"
-)
-if (BUILD_WITH_TEST)
-target_include_directories(minimalcpppj
-  PUBLIC
-  "include"
+  PRIVATE
   "${doctest_SOURCE_DIR}"
 )
-endif()
+add_subdirectory(src)
+target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC spdlog::spdlog)
