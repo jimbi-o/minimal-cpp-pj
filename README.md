@@ -3,7 +3,7 @@ Minimal c++ project template with cmake, doctest, spdlog, etc.
 
 ## initial setup
 ```
-bash tools/initial-setup.sh
+bash scripts/initial-setup.sh
 ```
 
 ## make & build
