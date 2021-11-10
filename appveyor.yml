@@ -10,7 +10,7 @@ configuration:
 
 before_build:
 - cmd:
-    cmake -S src -B build -DBUILD_WITH_TEST=ON
+    cmake -S . -B build -DBUILD_WITH_TEST=ON
 
 build:
   verbosity: normal
