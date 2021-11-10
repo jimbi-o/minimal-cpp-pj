@@ -1,0 +1,16 @@
+version: 1.0.{build}
+
+image:
+- Visual Studio 2019
+- Visual Studio 2017
+
+configuration:
+- Debug
+- Release
+
+before_build:
+- cmd:
+    cmake -S src -B build -DBUILD_WITH_TEST=ON
+
+build:
+  verbosity: normal
