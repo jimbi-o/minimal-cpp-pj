@@ -8,9 +8,15 @@ configuration:
 - Debug
 - Release
 
+environment:
+  matrix:
+  - BUILD_OPTIONS: -DBUILD_WITH_TEST=ON
+  - BUILD_OPTIONS: -DBUILD_WITH_TEST=OFF
+  - BUILD_OPTIONS: -DLIB_MODE=ON
+
 before_build:
 - cmd:
-    cmake -S . -B build -DBUILD_WITH_TEST=ON
+    cmake -S . -B build $BUILD_OPTIONS
 
 build:
   project: build\minimalcpppj.sln
