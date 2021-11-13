@@ -21,6 +21,7 @@ jobs:
           build_command_prepend: cmake -S . -B build
           build_command: cmake --build build
           branch_pattern: coverity_scan
+          notification_email: jimbi.o.nanamemaegami@gmail.com
     - compiler: gcc
       env:
         - TEST_ON=OFF
