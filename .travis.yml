@@ -15,12 +15,12 @@ jobs:
       addons:
         apt:
           packages: lcov
-      coverity_scan:
-        project:
-          name: "$TRAVIS_REPO_SLUG"
-        build_command_prepend: cmake -S . -B build
-        build_command: cmake --build build
-        branch_pattern: coverity_scan
+        coverity_scan:
+          project:
+            name: "$TRAVIS_REPO_SLUG"
+          build_command_prepend: cmake -S . -B build
+          build_command: cmake --build build
+          branch_pattern: coverity_scan
     - compiler: gcc
       env:
         - TEST_ON=OFF
