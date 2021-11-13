@@ -33,10 +33,27 @@ build\testvs\Debug\minimalcpppj.exe
 
 ## memo
 
-* travis needs to register credit card & physical address to authorise new user.
-* ``COVERITY_SCAN_TOKEN`` set in travis (as a secure value) needs to be changed for each project.
-  * [how to encrypt](https://docs.travis-ci.com/user/encryption-keys/)
-  * to login, use --github-token with token generated in github > settings > Developer settings > Personal access tokens
+### travis setup
+
+travis needs to register credit card & physical address to authorise new user.
+
+``COVERITY_SCAN_TOKEN`` set in travis (as a secure value) needs to be changed for each project.
+
+* [how to encrypt](https://docs.travis-ci.com/user/encryption-keys/)
+* to login, use --github-token with token generated in github > settings > Developer settings > Personal access tokens
+
+## include-what-you-use
+
+```
+# might need to run following commands
+## sudo apt install zlib1g-dev
+## sudo apt install libclang-12-dev libclang-13-dev
+# clone and build include-what-you-use
+## cmake -S . -B build -G Ninja -DCMAKE_C_COMPILER=clang-12 -DCMAKE_CXX_COMPILER=clang++-12 -DCMAKE_PREFIX_PATH=/usr/lib/llvm-12
+## cmake --build build
+cmake -S . -B build/testclang12 -G Ninja -DCMAKE_C_COMPILER=clang-12 -DCMAKE_CXX_COMPILER=clang++-12 -DCMAKE_CXX_INCLUDE_WHAT_YOU_USE="$HOME/tools/include-what-you-use/build/bin/include-what-you-use;-Xiwyu;any;-Xiwyu;iwyu;-Xiwyu;args"
+cmake --build build/testclang12
+```
 
 ## references
 
