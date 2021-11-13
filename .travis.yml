@@ -34,4 +34,4 @@ script: |
   cmake --build build
   ./build/minimalcpppj
 after_success: |
-  if [ $COVERAGE == true] ; then bash -x scripts/run-codecov.sh; fi
+  if [ $COVERAGE == true ] ; then bash -x scripts/run-codecov.sh; fi
