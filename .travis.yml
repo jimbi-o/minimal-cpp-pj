@@ -18,7 +18,7 @@ jobs:
         coverity_scan:
           project:
             name: "$TRAVIS_REPO_SLUG"
-          build_command_prepend: cmake -S . -B build
+          build_command_prepend: cmake -S . -B build -DBUILD_WITH_TEST=ON
           build_command: cmake --build build
           branch_pattern: coverity_scan
           notification_email: jimbi.o.nanamemaegami@gmail.com
