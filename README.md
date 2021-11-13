@@ -22,6 +22,10 @@ bash scripts/build-unix.sh
 * setup CoverityScan w/[travis](https://scan.coverity.com/travis_ci)
 * use LLVM toolset in CI
 
+## memo
+
+* travis needs to register credit card & physical address to authorise new user.
+
 ## references
 
 [C++ Best Practices](https://lefticus.gitbooks.io/cpp-best-practices/content/02-Use_the_Tools_Available.html)
