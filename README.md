@@ -29,14 +29,15 @@ build\testvs\Debug\minimalcpppj.exe
 
 ## TODO
 
-* setup CoverityScan (see Overview page for the project)
-* setup CoverityScan w/[travis](https://scan.coverity.com/travis_ci)
 * use LLVM toolset in CI
 
 ## memo
 
 * travis needs to register credit card & physical address to authorise new user.
+* ``COVERITY_SCAN_TOKEN`` set in travis (as a secure value) needs to be changed for each project.
+  * [how to encrypt](https://docs.travis-ci.com/user/encryption-keys/)
+  * to login, use --github-token with token generated in github > settings > Developer settings > Personal access tokens
 
 ## references
 
-[C++ Best Practices](https://lefticus.gitbooks.io/cpp-best-practices/content/02-Use_the_Tools_Available.html)
+* [C++ Best Practices](https://lefticus.gitbooks.io/cpp-best-practices/content/02-Use_the_Tools_Available.html)
