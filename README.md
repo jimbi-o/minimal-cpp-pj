@@ -58,13 +58,13 @@ cmake --build build/testclang12
 ### clang-check
 
 ```
-find ./ -name '*.cpp' | xargs clang-check-10 --analyze -p=build/testclang11/compile_commands.json
+find app src tests -name '*.cpp' | xargs clang-check-12 --analyze -p=build/testclang12/compile_commands.json
 ```
 
 ### clang-tidy
 
 ```
-run-clang-tidy -p build/testclang11 */*.cpp
+run-clang-tidy-12 -header-filter=./include -p build/testclang12 (app|src|tests)/*.cpp
 ```
 
 ### sanitizers
