@@ -42,7 +42,7 @@ travis needs to register credit card & physical address to authorise new user.
 * [how to encrypt](https://docs.travis-ci.com/user/encryption-keys/)
 * to login, use --github-token with token generated in github > settings > Developer settings > Personal access tokens
 
-## include-what-you-use
+### include-what-you-use
 
 ```
 # might need to run following commands
@@ -54,6 +54,29 @@ travis needs to register credit card & physical address to authorise new user.
 cmake -S . -B build/testclang12 -G Ninja -DCMAKE_C_COMPILER=clang-12 -DCMAKE_CXX_COMPILER=clang++-12 -DCMAKE_CXX_INCLUDE_WHAT_YOU_USE="$HOME/tools/include-what-you-use/build/bin/include-what-you-use;-Xiwyu;any;-Xiwyu;iwyu;-Xiwyu;args"
 cmake --build build/testclang12
 ```
+
+### clang-check
+
+```
+find ./ -name '*.cpp' | xargs clang-check-10 --analyze -p=build/testclang11/compile_commands.json
+```
+
+### clang-tidy
+
+```
+run-clang-tidy -p build/testclang11 */*.cpp
+```
+
+### sanitizers
+
+```
+# address sanitizer
+cmake -S . -B build/testclang12 -G Ninja -DCMAKE_C_COMPILER=clang-12 -DCMAKE_CXX_COMPILER=clang++-12 -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCPM_SOURCE_CACHE=~/dev/.cache/CPM -DCMAKE_CXX_FLAGS="-O1 -g -fno-omit-frame-pointer -fsanitize=address -D_GLIBCXX_SANITIZE_VECTOR" -DBUILD_WITH_TEST=ON && cmake --build build/testclang12 && env ASAN_OPTIONS="check_initialization_order=1:detect_stack_use_after_return=1:atexit=1" ./build/testclang12/minimalcpppj
+```
+
+### misc
+
+* failed to install valgrind... (both using apt install and building from code)
 
 ## references
 
