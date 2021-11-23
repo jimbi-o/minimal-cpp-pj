@@ -51,8 +51,8 @@ travis needs to register credit card & physical address to authorise new user.
 # clone and build include-what-you-use
 ## cmake -S . -B build -G Ninja -DCMAKE_C_COMPILER=clang-12 -DCMAKE_CXX_COMPILER=clang++-12 -DCMAKE_PREFIX_PATH=/usr/lib/llvm-12
 ## cmake --build build
-cmake -S . -B build/testclang12 -G Ninja -DCMAKE_C_COMPILER=clang-12 -DCMAKE_CXX_COMPILER=clang++-12 -DCMAKE_CXX_INCLUDE_WHAT_YOU_USE="$HOME/tools/include-what-you-use/build/bin/include-what-you-use;-Xiwyu;any;-Xiwyu;iwyu;-Xiwyu;args"
-cmake --build build/testclang12
+cmake -S . -B build/iwyu -G Ninja -DCMAKE_C_COMPILER=clang-12 -DCMAKE_CXX_COMPILER=clang++-12 -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCPM_SOURCE_CACHE=~/dev/.cache/CPM -DCMAKE_CXX_FLAGS="-I/usr/lib/llvm-12/lib/clang/12.0.1/include" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_WITH_TEST=ON
+$HOME/dev/tools/include-what-you-use/iwyu_tool.py -p build/iwyu (app|src|test)/*.cpp
 ```
 
 ### clang-check
