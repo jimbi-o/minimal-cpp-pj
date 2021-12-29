@@ -39,6 +39,8 @@ travis needs to register credit card & physical address to authorise new user.
 
 ``COVERITY_SCAN_TOKEN`` set in travis (as a secure value) needs to be changed for each project.
 
+``COVERITY_SCAN_TOKEN`` is at  Coverity Scan > Project Setting > Project token.
+
 * [how to encrypt](https://docs.travis-ci.com/user/encryption-keys/)
 * to login, use --github-token with token generated in github > settings > Developer settings > Personal access tokens
 

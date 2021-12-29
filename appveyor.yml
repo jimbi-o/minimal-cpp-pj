@@ -1,17 +1,42 @@
 version: 1.0.{build}
 
+environment:
+  coverity_token:
+    secure: FILL_HERE
+  coverity_email:
+    secure: FILL_HERE
+
 image:
 - Visual Studio 2019
-- Visual Studio 2017
 
 configuration:
 - Debug
 - Release
 
 before_build:
-- cmd:
-    cmake -S . -B build -DBUILD_WITH_TEST=ON
+- cmake -S . -B build -DBUILD_WITH_TEST=ON
 
-build:
-  project: build\minimalcpppj.sln
-  verbosity: normal
+build_script:
+- cmake --build build --config %configuration%
+
+for:
+-
+  branches:
+    only:
+      - coverity_scan
+  configuration: Debug
+  build_script:
+  - cov-build --dir cov-int cmake --build build --config %configuration%
+  - 7z a cov-int.zip cov-int
+  - curl --form token=%coverity_token% --form email=%coverity_email% --form file=@cov-int.zip --form version="%APPVEYOR_BUILD_VERSION%" --form description="%APPVEYOR_BUILD_VERSION%" https://scan.coverity.com/builds?project=%APPVEYOR_REPO_NAME%
+-
+  matrix:
+    only:
+    - configuration: Debug
+  install:
+  - choco install opencppcoverage codecov
+  - set PATH=C:\Program Files\OpenCppCoverage;%PATH%
+  after_build:
+  - cd build
+  - OpenCppCoverage.exe --sources src --sources tests --export_type cobertura:coverage.xml --modules "*.exe" --cover_children -- %configuration%/minimalcpppj.exe -C %configuration% --output-on-failure
+  - codecov -f coverage.xml --root %APPVEYOR_BUILD_FOLDER%
