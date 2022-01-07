@@ -28,14 +28,19 @@ set_target_properties(spdlog PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<T
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE spdlog::spdlog)
 
 target_compile_features(${CMAKE_PROJECT_NAME} PUBLIC cxx_std_20)
-target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/MP>) # parallel build in MSVC
 target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE
   $<$<CXX_COMPILER_ID:GNU>:-Wall -Wextra -Wpedantic>
   $<$<CXX_COMPILER_ID:Clang>:-Weverything -Wno-c++98-c++11-c++14-compat -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-c++20-compat>
-  $<$<CXX_COMPILER_ID:MSVC>:/W4>
+  $<$<CXX_COMPILER_ID:MSVC>:/W4 /MP>
 )
+target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
+  $<$<CXX_COMPILER_ID:MSVC>:NOMINMAX>)
 target_include_directories(${CMAKE_PROJECT_NAME}
   PUBLIC
   "include"
+)
+target_precompile_headers(${CMAKE_PROJECT_NAME}
+  PRIVATE
+  "${spdlog_SOURCE_DIR}/include/spdlog/spdlog.h"
 )
 add_subdirectory(src)
