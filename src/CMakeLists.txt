@@ -1,3 +1,3 @@
-target_sources(${CMAKE_PROJECT_NAME}
+target_sources(${PROJECT_NAME}
   PRIVATE
   "dummy.cpp")

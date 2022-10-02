@@ -1,4 +1,4 @@
-target_sources(${CMAKE_PROJECT_NAME}
+target_sources(${PROJECT_NAME}
   PRIVATE
   "test_main.cpp"
   "test_example.cpp"
