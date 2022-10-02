@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(minimalcpppj
   VERSION 1.0
-  DESCRIPTION "render graph parser"
+  DESCRIPTION "minimal cpp pj template"
   LANGUAGES CXX
 )
 
@@ -9,17 +9,11 @@ include(cmake/CPM.cmake)
 CPMAddPackage("gh:onqtam/doctest#2.4.6")
 CPMAddPackage("gh:gabime/spdlog@1.9.2")
 
-option(LIB_MODE "build static library." OFF)
-option(BUILD_WITH_TEST "build project with test (not used when LIB_MODE=ON)." OFF)
-if (NOT LIB_MODE AND CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   add_executable(${CMAKE_PROJECT_NAME})
-  if (BUILD_WITH_TEST)
-	target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE BUILD_WITH_TEST DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
+	target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
 	target_include_directories(${CMAKE_PROJECT_NAME} SYSTEM PUBLIC "${doctest_SOURCE_DIR}")
 	add_subdirectory(tests)
-  else()
-	add_subdirectory(app)
-  endif()
 else()
   add_library(${PROJECT_NAME})
 endif()
