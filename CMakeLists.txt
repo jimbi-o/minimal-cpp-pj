@@ -5,7 +5,17 @@ project(minimalcpppj
   LANGUAGES CXX
 )
 
-include(cmake/CPM.cmake)
+function(download_cpm)
+  if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake")
+    message(STATUS "Downloading CPM.cmake...")
+    file(DOWNLOAD "https://github.com/TheLartians/CPM.cmake/releases/latest/download/cpm.cmake"
+      "${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake")
+  endif()
+  include("${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake")
+endfunction()
+
+download_cpm()
+
 CPMAddPackage("gh:onqtam/doctest#2.4.6")
 CPMAddPackage("gh:gabime/spdlog@1.9.2")
 
